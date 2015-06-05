@@ -1,6 +1,6 @@
 # SIS-PowerShell
 
-A PowerShell Module for interacting with SIS Integrations in Blackboard Learn
+(Eventually) A PowerShell Module for interacting with SIS Integrations in Blackboard Learn (but for now a collection of PowerShell scipts to do so)
 
 This is still very much an early work-in-progress. Please submit issues as you find them, and (obviously, I hope) feel free to make pull requests, forks etc.
 
