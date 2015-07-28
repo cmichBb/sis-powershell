@@ -4,6 +4,8 @@
 
 This is still very much an early work-in-progress. Please submit issues as you find them, and (obviously, I hope) feel free to make pull requests, forks etc.
 
+Mentioned as part of my BbWorld 2015 presentation [The SIS Framework: It's Not a Big Truck, It's a Series of Tubes!](https://speakerdeck.com/ksbarnt/the-sis-framework-its-not-a-big-truck-its-a-series-of-tubes)
+
 ## Version History
 
 ### v0.1
