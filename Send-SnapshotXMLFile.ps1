@@ -2,11 +2,11 @@
 .SYNOPSIS
   Submits a Snapshot XML File to Blackboard Learn for Processing
 .DESCRIPTION
-  Submits an XML feed file to a Snapshot Flat File Student Information System Integraion on Blackboard Learn for processing, and returns a Data Set UID that can be used to monitor the status of the submitted feed file
+  Submits an XML feed file to a Snapshot XML File Student Information System Integraion on Blackboard Learn for processing, and returns a Data Set UID that can be used to monitor the status of the submitted feed file
 .EXAMPLE
-  Send-SnapshotXMLFile -Server "blackboard.monument.edu" -RecordType CourseMembership -OperationType Store -IntegrationUsername "01928374-5647-4abc-faeb-0156924783af" -IntegrationPassword "thisisnotagoodpassword" -FeedFile D:\path_to_feed_file.txt
+  Send-SnapshotXMLFile -Server "blackboard.monument.edu" -OperationType RecordStatus -IntegrationUsername "01928374-5647-4abc-faeb-0156924783af" -IntegrationPassword "thisisnotagoodpassword" -FeedFile D:\path_to_feed_file.xml
 .EXAMPLE
-  Send-SnapshotXMLFile -Server "blackboard.monument.edu" -RecordType Person -OperationType Store -IntegrationUsername "01928374-5647-4abc-faeb-0156924783af" -IntegrationPassword "thisisnotagoodpassword" -FeedString "External_Person_Key|User_ID|Passwd|FirstName|LastName|Email|Institution_Role|Row_Status|student_id|Data_Source_Key`r`ndoe1js|doe1js|thisisalsoabadpassword|John|Doe||Student|Enabled|1234567890|EXAMPLE"
+  Send-SnapshotXMLFile -Server "blackboard.monument.edu" --OperationType DeleteOnly -IntegrationUsername "01928374-5647-4abc-faeb-0156924783af" -IntegrationPassword "thisisnotagoodpassword" -FeedString "<enterprise><group><sourcedid><source>Purge</source><id>DELTE_THIS_COURSE</id></sourcedid></group></enterprise>"
 .PARAMETER Server
   The address of the server to send the feed file to. Could be a hostname, fully-quallified domain name, or IP address.
 .PARAMETER OperationType
@@ -47,7 +47,7 @@ function Send-SnapshotXMLFile
         $Server,
 
         [Parameter(Mandatory=$true)]
-        [ValidateSet("Store", "CompleteRefresh", "CompleteRefreshByDataSource", "Delete")]
+        [ValidateSet("RecordStatus", "CompleteRefresh", "CompleteRefreshByDataSource", "DeleteOnly")]
         [String]
         $OperationType,
 
@@ -107,31 +107,13 @@ function Send-SnapshotXMLFile
             $URIPort = ":"+$Port
         }
 
-        switch ( $RecordType ) {
-          "Course" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/course/"; break }
-          "CourseAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/courseassociation/"; break }
-          "CourseCategory" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/coursecategory/"; break }
-          "CourseCategoryMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/coursecategorymembership/"; break }
-          "CourseMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/membership/"; break }
-          "CourseStandardAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/standardsassociation/"; break }
-          "HeirarchyNode" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/node/"; break }
-          "ObserverAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/associateobserver/"; break }
-          "Organization" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organization/"; break }
-          "OrganizationAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organizationassociation/"; break }
-          "OrganizationCategory" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organizationcategory/"; break }
-          "OrganizationCategoryMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organizationcategorymembership/"; break }
-          "OrganizationMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organizationmembership/"; break }
-          "Person" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/person/"; break }
-          "Term" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/term/"; break }
-          "UserAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/userassociation/"; break }
-          "UserSecondaryInstitutionRole" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/secondaryinstrole/"; break }
-        }
+        $URIBase = "/webapps/bb-data-integration-ss-xml-BBLEARN/endpoint"
 
         switch ( $OperationType ) {
-          "Store" { $URIOperation = "store"; break }
-          "CompleteRefresh" { $URIOperation = "refresh"; break }
-          "CompleteRefreshByDataSource" { $URIOperation = "refreshlegacy"; break }
-          "Delete" { $URIOperation = "delete"; break }
+          "RecordStatus" { $URIOperation = ""; break }
+          "CompleteRefresh" { $URIOperation = "/refresh"; break }
+          "CompleteRefreshByDataSource" { $URIOperation = "/refreshlegacy"; break }
+          "DeleteOnly" { $URIOperation = "/delete"; break }
         }
 
 
