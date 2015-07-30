@@ -8,6 +8,10 @@ Mentioned as part of my BbWorld 2015 presentation [The SIS Framework: It's Not a
 
 ## Version History
 
+### v0.2
+
+- Addition of Send-SnapshotXMLFile.ps1
+
 ### v0.1
 
 - Initial release to GitHub
