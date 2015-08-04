@@ -6,7 +6,6 @@ This is still very much an early work-in-progress. Please submit issues as you f
 
 Mentioned as part of my BbWorld 2015 presentation [The SIS Framework: It's Not a Big Truck, It's a Series of Tubes!](https://speakerdeck.com/ksbarnt/the-sis-framework-its-not-a-big-truck-its-a-series-of-tubes)
 
-<<<<<<< HEAD
 ## Version History
 
 =======
@@ -28,7 +27,6 @@ For detailed help on a given CmdLet, use `Get-Help <CmdLet>` e.g. `Get-Help Get-
 - Actually a Module Now!
 - Installation Script!
 
->>>>>>> ksb-working-copy
 ### v0.2
 
 - Addition of Send-SnapshotXMLFile.ps1
