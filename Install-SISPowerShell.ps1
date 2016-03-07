@@ -13,7 +13,7 @@ if ($currentPrincipal.IsInRole( [Security.Principal.WindowsBuiltInRole]::Adminis
     else
     {
         Write-Host "WindowsPowerShell folder does not exist in Program Files. Creating." -ForegroundColor Red
-        New-Item -Path $WinPSDir -ItemType Direcotry
+        New-Item -Path $WinPSDir -ItemType Directory
     }
 
     $WinPSModulesDir = Join-Path -Path $WinPSDir -ChildPath "Modules"
@@ -25,7 +25,7 @@ if ($currentPrincipal.IsInRole( [Security.Principal.WindowsBuiltInRole]::Adminis
     else
     {
         Write-Host "Modules folder does not exist in WindowsPowerShell. Creating." -ForegroundColor Red
-        New-Item -Path $WinPSModulesDir -ItemType Direcotry
+        New-Item -Path $WinPSModulesDir -ItemType Directory
     }
     
     # Create the SIS-PowerShell Folder
