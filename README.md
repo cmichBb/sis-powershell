@@ -22,6 +22,14 @@ For detailed help on a given CmdLet, use `Get-Help <CmdLet>` e.g. `Get-Help Get-
 
 ## Version History
 
+### v1.0.2
+
+- Updated this file with version history information for hotfix v1.0.1
+
+### v1.0.1
+
+- Corrected typo in installation script
+
 ### v1.0
 
 - Actually a Module Now!
