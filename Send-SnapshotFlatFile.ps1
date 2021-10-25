@@ -9,6 +9,8 @@
   Send-SnapshotFlatFile -Server "blackboard.monument.edu" -RecordType Person -OperationType Store -IntegrationUsername "01928374-5647-4abc-faeb-0156924783af" -IntegrationPassword "thisisnotagoodpassword" -FeedString "External_Person_Key|User_ID|Passwd|FirstName|LastName|Email|Institution_Role|Row_Status|student_id|Data_Source_Key`r`ndoe1js|doe1js|thisisalsoabadpassword|John|Doe||Student|Enabled|1234567890|EXAMPLE"
 .PARAMETER Server
   The address of the server to send the feed file to. Could be a hostname, fully-quallified domain name, or IP address.
+.PARAMETER serverbuildingblockURL
+  The part of the URL for the Building Block. By default it is BBLEARN, but in SaaS it can change.
 .PARAMETER RecordType
   Specifies the type of record contained in the feed file.
 
@@ -66,6 +68,10 @@ function Send-SnapshotFlatFile
         [ValidateNotNullOrEmpty()]
         [String]
         $Server,
+
+        [Parameter(Mandatory=$false)]
+        [String]
+        $serverbuildingblockURL = 'BBLEARN',
 
         [Parameter(Mandatory=$true)]
         [ValidateSet("Course",
@@ -150,23 +156,23 @@ function Send-SnapshotFlatFile
         }
 
         switch ( $RecordType ) {
-          "Course" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/course/"; break }
-          "CourseAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/courseassociation/"; break }
-          "CourseCategory" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/coursecategory/"; break }
-          "CourseCategoryMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/coursecategorymembership/"; break }
-          "CourseMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/membership/"; break }
-          "CourseStandardAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/standardsassociation/"; break }
-          "HeirarchyNode" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/node/"; break }
-          "ObserverAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/associateobserver/"; break }
-          "Organization" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organization/"; break }
-          "OrganizationAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organizationassociation/"; break }
-          "OrganizationCategory" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organizationcategory/"; break }
-          "OrganizationCategoryMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organizationcategorymembership/"; break }
-          "OrganizationMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/organizationmembership/"; break }
-          "Person" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/person/"; break }
-          "Term" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/term/"; break }
-          "UserAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/userassociation/"; break }
-          "UserSecondaryInstitutionRole" { $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/secondaryinstrole/"; break }
+          "Course" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/course/"; break }
+          "CourseAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/courseassociation/"; break }
+          "CourseCategory" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/coursecategory/"; break }
+          "CourseCategoryMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/coursecategorymembership/"; break }
+          "CourseMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/membership/"; break }
+          "CourseStandardAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/standardsassociation/"; break }
+          "HeirarchyNode" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/node/"; break }
+          "ObserverAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/associateobserver/"; break }
+          "Organization" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/organization/"; break }
+          "OrganizationAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/organizationassociation/"; break }
+          "OrganizationCategory" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/organizationcategory/"; break }
+          "OrganizationCategoryMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/organizationcategorymembership/"; break }
+          "OrganizationMembership" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/organizationmembership/"; break }
+          "Person" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/person/"; break }
+          "Term" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/term/"; break }
+          "UserAssociation" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/userassociation/"; break }
+          "UserSecondaryInstitutionRole" { $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/secondaryinstrole/"; break }
         }
 
         switch ( $OperationType ) {

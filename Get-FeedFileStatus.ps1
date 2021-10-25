@@ -7,6 +7,8 @@
   Get-FeedFileStatus -Server "blackboard.monument.edu" -IntegrationType SnapshotFlatFile -IntegrationUsername "01928374-5647-4abc-faeb-0156924783af" -IntegrationPassword "thisisnotagoodpassword" -DataSetUID "b80f07b065ce404abeda343b17605355"
 .PARAMETER Server
   The address of the server to send the feed file to. Could be a hostname, fully-quallified domain name, or IP address.
+.PARAMETER serverbuildingblockURL
+  The part of the URL for the Building Block. By default it is BBLEARN, but in SaaS it can change.
 .PARAMETER IntegrationType
   Specifies the type of integration the feed file was submitted to.
 
@@ -50,6 +52,10 @@ function Get-FeedFileStatus
         [ValidateNotNullOrEmpty()]
         [String]
         $Server,
+
+        [Parameter(Mandatory=$false)]
+        [String]
+        $serverbuildingblockURL = 'BBLEARN',
 
         [Parameter(Mandatory=$true)]
         [ValidateSet("SnapshotFlatFile", "SnapshotXML", "LISDraft", "LISFinal")]
@@ -124,10 +130,10 @@ function Get-FeedFileStatus
         }
 
         if ( $IntegrationType -eq "SnapshotFlatFile" ) {
-            $URIBase = "/webapps/bb-data-integration-flatfile-BBLEARN/endpoint/dataSetStatus/"
+            $URIBase = "/webapps/bb-data-integration-flatfile-$serverbuildingblockURL/endpoint/dataSetStatus/"
         }
         elseif ( $IntegrationType -eq "SnapshotXML" ) {
-            $URIBase = "/webapps/bb-data-integration-ss-xml-BBLEARN/endpoint/dataSetStatus/"
+            $URIBase = "/webapps/bb-data-integration-ss-xml-$serverbuildingblockURL/endpoint/dataSetStatus/"
         }
         
 
