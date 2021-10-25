@@ -9,6 +9,8 @@
   Send-SnapshotXMLFile -Server "blackboard.monument.edu" --OperationType DeleteOnly -IntegrationUsername "01928374-5647-4abc-faeb-0156924783af" -IntegrationPassword "thisisnotagoodpassword" -FeedString "<enterprise><group><sourcedid><source>Purge</source><id>DELTE_THIS_COURSE</id></sourcedid></group></enterprise>"
 .PARAMETER Server
   The address of the server to send the feed file to. Could be a hostname, fully-quallified domain name, or IP address.
+.PARAMETER serverbuildingblockURL
+  The part of the URL for the Building Block. By default it is BBLEARN, but in SaaS it can change.
 .PARAMETER OperationType
   Specifies the type of operation to perform.
 
@@ -45,6 +47,10 @@ function Send-SnapshotXMLFile
         [ValidateNotNullOrEmpty()]
         [String]
         $Server,
+
+        [Parameter(Mandatory=$false)]
+        [String]
+        $serverbuildingblockURL = 'BBLEARN',
 
         [Parameter(Mandatory=$true)]
         [ValidateSet("RecordStatus", "CompleteRefresh", "CompleteRefreshByDataSource", "DeleteOnly")]
@@ -107,7 +113,7 @@ function Send-SnapshotXMLFile
             $URIPort = ":"+$Port
         }
 
-        $URIBase = "/webapps/bb-data-integration-ss-xml-BBLEARN/endpoint"
+        $URIBase = "/webapps/bb-data-integration-ss-xml-$serverbuildingblockURL/endpoint"
 
         switch ( $OperationType ) {
           "RecordStatus" { $URIOperation = ""; break }
